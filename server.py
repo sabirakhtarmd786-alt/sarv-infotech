@@ -226,6 +226,8 @@ class BlogRequestHandler(http.server.BaseHTTPRequestHandler):
             rel_file = "create-post.html"
         elif clean_path == "profile":
             rel_file = "profile.html"
+        elif clean_path == "calculator":
+            rel_file = "calculator/index.html"
         else:
             rel_file = clean_path
 

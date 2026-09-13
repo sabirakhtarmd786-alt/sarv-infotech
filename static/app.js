@@ -66,6 +66,7 @@ function updateNavbar() {
   if (currentUser) {
     const initial = currentUser.username.charAt(0).toUpperCase();
     navActions.innerHTML = `
+      <a href="/calculator" class="btn btn-secondary btn-sm">🧮 Calculator</a>
       <a href="/create-post" class="btn btn-primary btn-sm">+ Write Post</a>
       <a href="/profile" class="user-badge" title="View Profile">
         <span class="user-avatar-mini">${initial}</span>
@@ -75,6 +76,7 @@ function updateNavbar() {
     `;
   } else {
     navActions.innerHTML = `
+      <a href="/calculator" class="btn btn-secondary btn-sm">🧮 Calculator</a>
       <a href="/auth" class="btn btn-secondary btn-sm">Sign In</a>
       <a href="/auth?tab=register" class="btn btn-primary btn-sm">Register</a>
     `;

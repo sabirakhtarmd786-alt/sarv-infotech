@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Modern Calculator Stylesheet
+   Demonstrating CSS Grid Layout, Custom Properties & Responsive Design
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Modern Midnight & Indigo Glow */
+  --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 100%);
+  --calc-bg: rgba(30, 41, 59, 0.85);
+  --calc-border: rgba(255, 255, 255, 0.08);
+  --calc-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+  
+  --display-bg: #0b1329;
+  --display-border: rgba(255, 255, 255, 0.05);
+  --display-history: #94a3b8;
+  --display-current: #f8fafc;
+  
+  /* Keypad Button Colors */
+  --btn-num-bg: #1e293b;
+  --btn-num-text: #f1f5f9;
+  --btn-num-hover: #334155;
+  --btn-num-active: #475569;
+  
+  --btn-func-bg: #334155;
+  --btn-func-text: #cbd5e1;
+  --btn-func-hover: #475569;
+  --btn-func-active: #64748b;
+  
+  --btn-op-bg: #4f46e5;
+  --btn-op-text: #ffffff;
+  --btn-op-hover: #6366f1;
+  --btn-op-active: #4338ca;
+  --btn-op-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+  
+  --btn-eq-bg: #10b981;
+  --btn-eq-text: #ffffff;
+  --btn-eq-hover: #34d399;
+  --btn-eq-active: #059669;
+  --btn-eq-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+
+  /* Typography */
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Sizing & Transitions */
+  --border-radius-calc: 24px;
+  --border-radius-btn: 14px;
+  --transition-speed: 0.15s;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f8fafc;
+  padding: 20px;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Header Section */
+.app-header {
+  text-align: center;
+}
+
+.app-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.app-subtitle {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Calculator Container */
+.calculator {
+  width: 100%;
+  background: var(--calc-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--calc-border);
+  border-radius: var(--border-radius-calc);
+  box-shadow: var(--calc-shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Display Screen */
+.display {
+  background: var(--display-bg);
+  border: 1px solid var(--display-border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.previous-operand {
+  color: var(--display-history);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  min-height: 1.4rem;
+  text-align: right;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+.current-operand {
+  color: var(--display-current);
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 600;
+  text-align: right;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  transition: font-size 0.1s ease;
+}
+
+/* ==========================================================================
+   CSS GRID SYSTEM FOR KEYPAD ALIGNMENT (Requirement)
+   ========================================================================== */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 60px);
+  gap: 12px;
+}
+
+/* Button Base Styles */
+.btn {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-main);
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: var(--border-radius-btn);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--transition-speed) ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
+
+/* Number Button Variant */
+.btn-number {
+  background-color: var(--btn-num-bg);
+  color: var(--btn-num-text);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.btn-number:hover {
+  background-color: var(--btn-num-hover);
+  transform: translateY(-2px);
+}
+
+.btn-number:active,
+.btn-number.active {
+  background-color: var(--btn-num-active);
+  transform: translateY(0);
+}
+
+/* Function Button Variant (AC, DEL, %) */
+.btn-function {
+  background-color: var(--btn-func-bg);
+  color: var(--btn-func-text);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.btn-function:hover {
+  background-color: var(--btn-func-hover);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-function:active,
+.btn-function.active {
+  background-color: var(--btn-func-active);
+  transform: translateY(0);
+}
+
+/* Operator Button Variant (+, −, ×, ÷) */
+.btn-operator {
+  background-color: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 1.4rem;
+  font-weight: 600;
+  box-shadow: var(--btn-op-shadow);
+}
+
+.btn-operator:hover {
+  background-color: var(--btn-op-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
+}
+
+.btn-operator:active,
+.btn-operator.active {
+  background-color: var(--btn-op-active);
+  transform: translateY(0);
+}
+
+/* Equals Button Variant (=) */
+.btn-equals {
+  background-color: var(--btn-eq-bg);
+  color: var(--btn-eq-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: var(--btn-eq-shadow);
+}
+
+.btn-equals:hover {
+  background-color: var(--btn-eq-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
+}
+
+.btn-equals:active,
+.btn-equals.active {
+  background-color: var(--btn-eq-active);
+  transform: translateY(0);
+}
+
+/* Active Operator Highlight (when waiting for 2nd operand) */
+.btn-operator.active-op {
+  background-color: #ffffff;
+  color: var(--btn-op-bg);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+}
+
+/* Keyboard Guide Details */
+.app-footer {
+  width: 100%;
+}
+
+.shortcuts-guide {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.shortcuts-guide summary {
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.shortcuts-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+kbd {
+  background: #334155;
+  color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 420px) {
+  .calculator {
+    padding: 18px;
+    border-radius: 20px;
+  }
+  
+  .keypad {
+    grid-template-rows: repeat(5, 54px);
+    gap: 8px;
+  }
+
+  .btn {
+    font-size: 1.15rem;
+  }
+
+  .current-operand {
+    font-size: 1.85rem;
+  }
+}

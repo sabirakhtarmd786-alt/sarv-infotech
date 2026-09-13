@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tech-blog
+    name: sarv-infotech
     runtime: python
     buildCommand: ""
     startCommand: "python server.py --port $PORT"

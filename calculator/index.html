@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page-container">
+    <header class="app-header">
+      <h1 class="app-title">Web Calculator</h1>
+      <p class="app-subtitle">Built with HTML5, CSS Grid &amp; JavaScript</p>
+    </header>
+
+    <!-- Calculator Main Container -->
+    <main class="calculator" role="region" aria-label="Calculator">
+      <!-- Calculator Display Screen -->
+      <section class="display" aria-live="polite">
+        <!-- Sub-display for previous operand and pending operator -->
+        <div class="previous-operand" id="previous-operand" aria-label="Previous calculation"></div>
+        <!-- Main display for current input and results -->
+        <div class="current-operand" id="current-operand" aria-label="Current input or result">0</div>
+      </section>
+
+      <!-- Keypad Grid Alignment -->
+      <section class="keypad" aria-label="Calculator Keypad">
+        <!-- Row 1: Utility functions & division -->
+        <button type="button" class="btn btn-function" data-action="all-clear" aria-label="All Clear" title="Clear All (Escape)">AC</button>
+        <button type="button" class="btn btn-function" data-action="delete" aria-label="Delete last digit" title="Backspace">DEL</button>
+        <button type="button" class="btn btn-function" data-action="percent" aria-label="Percentage" title="Percentage (%)">%</button>
+        <button type="button" class="btn btn-operator" data-operator="÷" aria-label="Divide" title="Divide (/)">÷</button>
+
+        <!-- Row 2: 7, 8, 9, multiplication -->
+        <button type="button" class="btn btn-number" data-number="7">7</button>
+        <button type="button" class="btn btn-number" data-number="8">8</button>
+        <button type="button" class="btn btn-number" data-number="9">9</button>
+        <button type="button" class="btn btn-operator" data-operator="×" aria-label="Multiply" title="Multiply (*)">×</button>
+
+        <!-- Row 3: 4, 5, 6, subtraction -->
+        <button type="button" class="btn btn-number" data-number="4">4</button>
+        <button type="button" class="btn btn-number" data-number="5">5</button>
+        <button type="button" class="btn btn-number" data-number="6">6</button>
+        <button type="button" class="btn btn-operator" data-operator="−" aria-label="Subtract" title="Subtract (-)">−</button>
+
+        <!-- Row 4: 1, 2, 3, addition -->
+        <button type="button" class="btn btn-number" data-number="1">1</button>
+        <button type="button" class="btn btn-number" data-number="2">2</button>
+        <button type="button" class="btn btn-number" data-number="3">3</button>
+        <button type="button" class="btn btn-operator" data-operator="+" aria-label="Add" title="Add (+)">+</button>
+
+        <!-- Row 5: sign toggle, 0, decimal, equals -->
+        <button type="button" class="btn btn-number" data-action="negate" aria-label="Toggle Positive/Negative" title="Toggle Sign (±)">±</button>
+        <button type="button" class="btn btn-number" data-number="0">0</button>
+        <button type="button" class="btn btn-number" data-action="decimal" aria-label="Decimal point">.</button>
+        <button type="button" class="btn btn-equals" data-action="calculate" aria-label="Calculate equals" title="Equals (= or Enter)">=</button>
+      </section>
+    </main>
+
+    <!-- Keyboard Shortcuts Helper Footer -->
+    <footer class="app-footer">
+      <details class="shortcuts-guide">
+        <summary>Keyboard Shortcuts Supported</summary>
+        <div class="shortcuts-content">
+          <span><kbd>0</kbd>–<kbd>9</kbd> Number keys</span>
+          <span><kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> Operators</span>
+          <span><kbd>Enter</kbd> or <kbd>=</kbd> Equals</span>
+          <span><kbd>Backspace</kbd> Delete</span>
+          <span><kbd>Esc</kbd> Clear All</span>
+          <span><kbd>.</kbd> Decimal point</span>
+        </div>
+      </details>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
