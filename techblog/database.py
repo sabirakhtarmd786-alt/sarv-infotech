@@ -4,7 +4,7 @@ import secrets
 import os
 from datetime import datetime, timedelta, timezone
 
-DB_FILE = os.environ.get("BLOG_DB_FILE", "blog.db")
+DB_FILE = os.environ.get("BLOG_DB_FILE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "blog.db"))
 
 def get_db_connection():
     conn = sqlite3.connect(DB_FILE, check_same_thread=False)

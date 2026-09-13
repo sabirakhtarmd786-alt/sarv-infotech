@@ -25,7 +25,7 @@ No dependencies, build tools, or servers are required!
 1. Open your terminal or file explorer.
 2. Navigate to the project folder:
    ```bash
-   cd /Users/sabir/.gemini/antigravity/scratch/basic-calculator
+   cd calculator
    ```
 3. Open `index.html` in your favorite web browser:
    - **macOS**: `open index.html`
