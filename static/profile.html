@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Author Profile | DevLog</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="app-navbar">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-title">DevLog<span class="accent-dot">.io</span></span>
+      </a>
+      <div class="nav-actions">
+        <a href="/" class="btn btn-secondary btn-sm">Home Feed</a>
+        <a href="/create-post" class="btn btn-primary btn-sm">+ New Post</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container profile-container">
+    <!-- Profile Header Card -->
+    <div class="profile-card" id="profile-card">
+      <div class="profile-header-layout">
+        <div class="profile-avatar-circle" id="profile-avatar">S</div>
+        <div class="profile-details">
+          <h1 class="profile-username" id="profile-username">Loading user...</h1>
+          <p class="profile-email" id="profile-email">email@example.com</p>
+          <p class="profile-bio" id="profile-bio">Passionate software developer and learner.</p>
+          <div class="profile-meta">
+            <span class="meta-tag" id="profile-posts-stat">📚 0 Articles</span>
+            <span class="meta-tag" id="profile-joined-stat">🗓️ Joined 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User's Posts Section -->
+    <section class="user-posts-section">
+      <div class="section-title-row">
+        <h2>Published Articles</h2>
+        <a href="/create-post" class="text-link">+ Write New Article</a>
+      </div>
+
+      <div class="user-posts-list" id="user-posts-list">
+        <!-- Injected via JavaScript -->
+        <p class="loading-text">Loading published articles...</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="alert"></div>
+
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      loadUserProfilePage();
+    });
+  </script>
+</body>
+</html>

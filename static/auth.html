@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Access | DevLog</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body class="auth-page">
+
+  <header class="app-navbar">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-title">DevLog<span class="accent-dot">.io</span></span>
+      </a>
+      <a href="/" class="btn btn-secondary btn-sm">← Back to Feed</a>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <!-- Error Alert -->
+      <div class="auth-alert" id="auth-alert" style="display: none;"></div>
+
+      <!-- 1. LOGIN FORM -->
+      <form id="login-form" class="auth-form" onsubmit="handleLoginSubmit(event)">
+        <h2 class="auth-heading">Welcome back</h2>
+        <p class="auth-subheading">Sign in to create posts and join community discussions.</p>
+
+        <div class="form-group">
+          <label for="login-username" class="form-label">Username or Email</label>
+          <input type="text" id="login-username" class="form-input" placeholder="e.g. sabir_akhtar" required />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="login-submit-btn">Sign In</button>
+        
+        <p class="auth-switch-text">
+          Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;">Register here</a>
+        </p>
+      </form>
+
+      <!-- 2. REGISTER FORM -->
+      <form id="register-form" class="auth-form" style="display: none;" onsubmit="handleRegisterSubmit(event)">
+        <h2 class="auth-heading">Join DevLog</h2>
+        <p class="auth-subheading">Create your profile to publish articles and leave comments.</p>
+
+        <div class="form-group">
+          <label for="reg-username" class="form-label">Choose Username</label>
+          <input type="text" id="reg-username" class="form-input" placeholder="e.g. sabir_akhtar" minlength="3" required />
+          <small class="form-hint">At least 3 characters. Letters, numbers, and underscores.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email" class="form-label">Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="sabirakhtarmd786@gmail.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password" class="form-label">Password</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="At least 6 characters" minlength="6" required />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-bio" class="form-label">Bio (Optional)</label>
+          <textarea id="reg-bio" class="form-input" rows="2" placeholder="e.g. 2nd Year CSE student interested in Java &amp; Web Dev"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="reg-submit-btn">Create Account</button>
+
+        <p class="auth-switch-text">
+          Already have an account? <a href="#" onclick="switchAuthTab('login'); return false;">Sign In</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    // Tab switching support
+    function switchAuthTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      const tabLogin = document.getElementById('tab-login');
+      const tabReg = document.getElementById('tab-register');
+      const alertBox = document.getElementById('auth-alert');
+      alertBox.style.display = 'none';
+
+      if (tab === 'register') {
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+        tabLogin.classList.remove('active');
+        tabReg.classList.add('active');
+      } else {
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+        tabLogin.classList.add('active');
+        tabReg.classList.remove('active');
+      }
+    }
+
+    // Check query param (e.g. /auth?tab=register)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'register') {
+        switchAuthTab('register');
+      }
+    });
+  </script>
+</body>
+</html>

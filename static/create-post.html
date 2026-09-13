@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write an Article | DevLog</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="app-navbar">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-title">DevLog<span class="accent-dot">.io</span></span>
+      </a>
+      <a href="/" class="btn btn-secondary btn-sm">Discard &amp; Back to Feed</a>
+    </div>
+  </header>
+
+  <main class="container editor-container">
+    <!-- Unauthenticated Warning Card -->
+    <div class="auth-gate" id="auth-gate" style="display: none;">
+      <div class="auth-gate-card">
+        <div class="gate-icon">🔒</div>
+        <h2>Sign in to Publish</h2>
+        <p>You must be registered and logged in to author blog posts on DevLog.</p>
+        <div class="gate-actions">
+          <a href="/auth" class="btn btn-primary">Sign In</a>
+          <a href="/auth?tab=register" class="btn btn-secondary">Create Account</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Post Editor -->
+    <div class="editor-wrapper" id="editor-wrapper">
+      <div class="editor-header">
+        <h1 class="editor-title">Publish New Article</h1>
+        <p class="editor-subtitle">Share your insights, code tutorials, project breakdowns, or career guidance with interactive media.</p>
+      </div>
+
+      <div class="alert-box" id="editor-alert" style="display: none;"></div>
+
+      <form id="create-post-form" onsubmit="handleCreatePostSubmit(event)">
+        <!-- Post Title -->
+        <div class="form-group">
+          <label for="post-title" class="form-label">Article Title</label>
+          <input type="text" id="post-title" class="form-input form-input-lg" placeholder="e.g. Building an ESP32 Sensor Hub with MQTT Telemetry" required minlength="5" />
+        </div>
+
+        <!-- Post Section (Hardware & IoT Merged) -->
+        <div class="form-group">
+          <label for="post-category" class="form-label">Section / Topic</label>
+          <select id="post-category" class="form-input form-select" required onchange="handleCategoryPresetChange(this.value)">
+            <option value="Software">💻 Software</option>
+            <option value="Hardware &amp; IoT">⚡ Hardware &amp; IoT</option>
+            <option value="Internship">🎓 Internship</option>
+            <option value="Jobs">💼 Jobs</option>
+            <option value="General">🌐 General</option>
+          </select>
+        </div>
+
+        <!-- Cover Image Input & Presets -->
+        <div class="form-group">
+          <label for="post-image" class="form-label">Cover Image URL (Optional)</label>
+          <input type="url" id="post-image" class="form-input" placeholder="Paste image URL (or select a preset below)" oninput="updateImagePreview(this.value)" />
+          
+          <div class="preset-images-bar">
+            <span class="preset-label">Quick Presets:</span>
+            <button type="button" class="preset-btn" onclick="applyImagePreset('/assets/software-banner.svg')">Software</button>
+            <button type="button" class="preset-btn" onclick="applyImagePreset('/assets/hardware-iot-banner.svg')">Hardware &amp; IoT</button>
+            <button type="button" class="preset-btn" onclick="applyImagePreset('/assets/internship-banner.svg')">Internship</button>
+            <button type="button" class="preset-btn" onclick="applyImagePreset('/assets/jobs-banner.svg')">Jobs</button>
+            <button type="button" class="preset-btn" onclick="applyImagePreset('/assets/general-banner.svg')">General</button>
+          </div>
+
+          <!-- Live Image Preview Box -->
+          <div class="image-preview-box" id="image-preview-box">
+            <img src="/assets/software-banner.svg" alt="Cover preview" id="preview-img" class="preview-img" />
+            <span class="preview-caption">Live Cover Preview</span>
+          </div>
+        </div>
+
+        <!-- Post Body Content -->
+        <div class="form-group">
+          <div class="label-with-meta">
+            <label for="post-content" class="form-label">Article Content</label>
+            <span class="char-count" id="char-count">0 words</span>
+          </div>
+          <textarea id="post-content" class="form-input form-textarea post-editor-area" rows="12" placeholder="Write your thoughts, technical explanation, code walk-through, or internship advice..." required minlength="10" oninput="updateWordCount()"></textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="editor-actions">
+          <a href="/" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary" id="publish-btn">
+            <span>Publish Article</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function updateWordCount() {
+      const content = document.getElementById('post-content').value.trim();
+      const words = content ? content.split(/\s+/).length : 0;
+      document.getElementById('char-count').innerText = `${words} ${words === 1 ? 'word' : 'words'}`;
+    }
+
+    function applyImagePreset(url) {
+      const input = document.getElementById('post-image');
+      input.value = url;
+      updateImagePreview(url);
+    }
+
+    function updateImagePreview(url) {
+      const previewImg = document.getElementById('preview-img');
+      const previewBox = document.getElementById('image-preview-box');
+      if (url && url.trim()) {
+        previewImg.src = url.trim();
+        previewBox.style.display = 'block';
+      } else {
+        previewBox.style.display = 'none';
+      }
+    }
+
+    function handleCategoryPresetChange(cat) {
+      const input = document.getElementById('post-image');
+      if (!input.value || input.value.startsWith('/assets/')) {
+        let preset = '/assets/general-banner.svg';
+        if (cat.includes('Software')) preset = '/assets/software-banner.svg';
+        else if (cat.includes('Hardware') || cat.includes('IoT')) preset = '/assets/hardware-iot-banner.svg';
+        else if (cat.includes('Internship')) preset = '/assets/internship-banner.svg';
+        else if (cat.includes('Jobs')) preset = '/assets/jobs-banner.svg';
+        applyImagePreset(preset);
+      }
+    }
+
+    // Check authentication on page load
+    window.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('devlog_token');
+      if (!token) {
+        document.getElementById('auth-gate').style.display = 'block';
+        document.getElementById('editor-wrapper').style.display = 'none';
+      } else {
+        const user = await fetchCurrentUser();
+        if (!user) {
+          document.getElementById('auth-gate').style.display = 'block';
+          document.getElementById('editor-wrapper').style.display = 'none';
+        } else {
+          // Initialize default preview with Software banner
+          applyImagePreset('/assets/software-banner.svg');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

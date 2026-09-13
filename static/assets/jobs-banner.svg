@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="jobs-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#jobs-bg)" />
+
+  <g transform="translate(160, 65)">
+    <!-- Resume / Interview Board -->
+    <rect width="480" height="320" rx="16" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="2" />
+    
+    <!-- Header -->
+    <rect x="30" y="30" width="60" height="60" rx="12" fill="#0284c7" />
+    <text x="60" y="68" font-size="28" text-anchor="middle">💼</text>
+    <text x="110" y="55" font-family="'Outfit', sans-serif" font-weight="bold" font-size="22" fill="#ffffff">Engineering Careers</text>
+    <text x="110" y="80" font-family="'JetBrains Mono', monospace" font-size="13" fill="#38bdf8">ATS Optimization • Technical Interviews</text>
+
+    <!-- Mock Resume Sections -->
+    <g transform="translate(30, 120)">
+      <rect x="0" y="0" width="420" height="12" rx="6" fill="#334155" />
+      <rect x="0" y="24" width="360" height="12" rx="6" fill="#334155" />
+      
+      <!-- Highlighted Skill Pill Tags -->
+      <g transform="translate(0, 60)">
+        <rect x="0" y="0" width="90" height="30" rx="15" fill="rgba(99, 102, 241, 0.2)" stroke="#818cf8" stroke-width="1.5" />
+        <text x="45" y="19" font-family="'JetBrains Mono', monospace" font-size="12" fill="#818cf8" text-anchor="middle">Java OOP</text>
+
+        <rect x="105" y="0" width="80" height="30" rx="15" fill="rgba(16, 185, 129, 0.2)" stroke="#34d399" stroke-width="1.5" />
+        <text x="145" y="19" font-family="'JetBrains Mono', monospace" font-size="12" fill="#34d399" text-anchor="middle">CSS Grid</text>
+
+        <rect x="200" y="0" width="70" height="30" rx="15" fill="rgba(6, 182, 212, 0.2)" stroke="#38bdf8" stroke-width="1.5" />
+        <text x="235" y="19" font-family="'JetBrains Mono', monospace" font-size="12" fill="#38bdf8" text-anchor="middle">Python</text>
+
+        <rect x="285" y="0" width="105" height="30" rx="15" fill="rgba(245, 158, 11, 0.2)" stroke="#fbbf24" stroke-width="1.5" />
+        <text x="337" y="19" font-family="'JetBrains Mono', monospace" font-size="12" fill="#fbbf24" text-anchor="middle">Algorithms</text>
+      </g>
+
+      <rect x="0" y="115" width="420" height="40" rx="8" fill="#0284c7" />
+      <text x="210" y="140" font-family="'Outfit', sans-serif" font-weight="bold" font-size="15" fill="#ffffff" text-anchor="middle">Ready for Global &amp; Remote Teams</text>
+    </g>
+  </g>
+</svg>

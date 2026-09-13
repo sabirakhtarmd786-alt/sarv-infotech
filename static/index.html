@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevLog | Software, Hardware &amp; IoT, Careers</title>
+  <meta name="description" content="Interactive developer blogging platform covering Software, Hardware &amp; IoT, Internships, Jobs, and General tech insights." />
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="app-navbar">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-title">DevLog<span class="accent-dot">.io</span></span>
+      </a>
+
+      <!-- Search Input in Navbar -->
+      <div class="search-container">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search Software, Hardware &amp; IoT, Internships, Jobs..." aria-label="Search blog posts" />
+        <button id="clear-search" class="clear-search" style="display:none;" aria-label="Clear search">&times;</button>
+      </div>
+
+      <!-- Navigation Actions -->
+      <nav class="nav-actions" id="nav-actions">
+        <!-- Injected via app.js -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO & CATEGORY BAR (Hardware & IoT Merged)
+       ========================================================================= -->
+  <section class="hero-strip">
+    <div class="container hero-strip-inner">
+      <div class="hero-text-block">
+        <h1 class="feed-headline">Explore Engineering &amp; Tech Stories</h1>
+        <p class="feed-subheadline">Curated deep-dives, tutorials, and career roadmaps with interactive discussions.</p>
+      </div>
+
+      <!-- Merged Categories -->
+      <div class="categories-bar" id="categories-bar">
+        <button class="cat-pill active" data-category="all">All Topics</button>
+        <button class="cat-pill" data-category="Software">💻 Software</button>
+        <button class="cat-pill" data-category="Hardware &amp; IoT">⚡ Hardware &amp; IoT</button>
+        <button class="cat-pill" data-category="Internship">🎓 Internship</button>
+        <button class="cat-pill" data-category="Jobs">💼 Jobs</button>
+        <button class="cat-pill" data-category="General">🌐 General</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN BLOG POSTS FEED (CSS Grid with Images)
+       ========================================================================= -->
+  <main class="container feed-container">
+    <div class="feed-header">
+      <h2 class="feed-title" id="feed-status-title">Latest Articles</h2>
+      <span class="feed-count" id="feed-count">Loading articles...</span>
+    </div>
+
+    <!-- Posts Grid with Thumbnails -->
+    <div class="posts-grid" id="posts-grid">
+      <!-- Loading Skeletons -->
+      <div class="post-card-skeleton"></div>
+      <div class="post-card-skeleton"></div>
+      <div class="post-card-skeleton"></div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <div class="empty-icon">🔍</div>
+      <h3 class="empty-title">No posts found in this section</h3>
+      <p class="empty-desc">Try clearing your search query or exploring another category.</p>
+      <button class="btn btn-secondary" onclick="resetFilters()">Reset All Filters</button>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       INTERACTIVE POST READER & COMMENT MODAL (With Hero Image & Likes)
+       ========================================================================= -->
+  <div class="modal-overlay" id="post-modal" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      
+      <!-- Article Hero Image -->
+      <div class="modal-hero-image-wrapper" id="modal-hero-wrapper" style="display:none;">
+        <img src="" alt="Post cover image" id="modal-hero-img" class="modal-hero-img" />
+      </div>
+
+      <article class="post-article" id="modal-article">
+        <!-- Injected dynamically by app.js -->
+      </article>
+
+      <!-- Interactive Action Bar (Like & Share) -->
+      <div class="article-interactive-bar">
+        <button class="btn-interactive btn-like" id="modal-like-btn" onclick="handleLikeCurrentPost()">
+          <span class="heart-icon" id="modal-heart-icon">🤍</span>
+          <span id="modal-likes-count">0</span>
+          <span>Likes</span>
+        </button>
+        <button class="btn-interactive btn-share" onclick="handleShareCurrentPost()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          <span>Share Link</span>
+        </button>
+      </div>
+
+      <!-- Comments Section -->
+      <section class="comments-section" id="modal-comments-section">
+        <h3 class="comments-title">Discussion (<span id="modal-comments-count">0</span>)</h3>
+
+        <!-- Comment Form (Shown when logged in) -->
+        <form class="comment-form" id="comment-form">
+          <div class="comment-input-wrapper">
+            <textarea id="comment-text" class="comment-textarea" placeholder="Share your thoughts or ask a question..." rows="3" required></textarea>
+          </div>
+          <div class="comment-actions">
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+          </div>
+        </form>
+
+        <!-- Login Prompt for Guests -->
+        <div class="comment-login-prompt" id="comment-login-prompt" style="display: none;">
+          <p>Please <a href="/auth" class="text-link">sign in</a> or <a href="/auth?tab=register" class="text-link">register</a> to join the conversation and leave a comment.</p>
+        </div>
+
+        <!-- Comments List -->
+        <div class="comments-list" id="comments-list">
+          <!-- Comments injected here -->
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="alert"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 DevLog Platform. Developed by Md Sabir Akhtar.</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/create-post">Write a Post</a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hw-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="50%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="chip-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#hw-bg)" />
+
+  <!-- Circuit lines in background -->
+  <path d="M 50 100 L 200 100 L 250 150 L 350 150 M 500 150 L 600 150 L 650 100 L 750 100 M 150 350 L 300 350 L 350 300 M 550 300 L 600 350 L 750 350" fill="none" stroke="rgba(16, 185, 129, 0.25)" stroke-width="3" stroke-dasharray="6,6" />
+
+  <!-- Microcontroller Board (ESP32 / IoT Node) -->
+  <g transform="translate(230, 75)">
+    <!-- PCB Board -->
+    <rect width="340" height="300" rx="18" fill="#065f46" stroke="#34d399" stroke-width="3" />
+    <!-- Mounting Holes -->
+    <circle cx="20" cy="20" r="7" fill="#022c22" stroke="#34d399" stroke-width="2" />
+    <circle cx="320" cy="20" r="7" fill="#022c22" stroke="#34d399" stroke-width="2" />
+    <circle cx="20" cy="280" r="7" fill="#022c22" stroke="#34d399" stroke-width="2" />
+    <circle cx="320" cy="280" r="7" fill="#022c22" stroke="#34d399" stroke-width="2" />
+
+    <!-- Main SoC Chip (ESP32 Wi-Fi & Bluetooth) -->
+    <rect x="85" y="60" width="170" height="150" rx="8" fill="url(#chip-grad)" stroke="#94a3b8" stroke-width="2" />
+    <text x="170" y="125" font-family="'Outfit', sans-serif" font-weight="bold" font-size="20" fill="#f8fafc" text-anchor="middle">ESP32-IoT</text>
+    <text x="170" y="150" font-family="'JetBrains Mono', monospace" font-size="12" fill="#34d399" text-anchor="middle">Wi-Fi + BLE + MQTT</text>
+
+    <!-- Antenna Traces -->
+    <path d="M 120 40 L 140 40 L 140 25 L 160 25 L 160 40 L 180 40 L 180 25 L 200 25 L 200 40 L 220 40" fill="none" stroke="#fcd34d" stroke-width="3" />
+
+    <!-- GPIO Pin Headers -->
+    <g fill="#fcd34d">
+      <rect x="10" y="50" width="15" height="200" rx="4" />
+      <rect x="315" y="50" width="15" height="200" rx="4" />
+    </g>
+
+    <!-- Signal waves -->
+    <g stroke="#38bdf8" stroke-width="2" fill="none">
+      <path d="M 140 245 C 155 240, 185 240, 200 245" />
+      <path d="M 130 255 C 150 245, 190 245, 210 255" />
+    </g>
+    <text x="170" y="280" font-family="'JetBrains Mono', monospace" font-size="11" fill="#38bdf8" text-anchor="middle">TELEMETRY LINK ACTIVE</text>
+  </g>
+</svg>
