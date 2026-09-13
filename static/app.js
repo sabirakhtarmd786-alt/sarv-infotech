@@ -1,15 +1,15 @@
 /**
- * DevLog Full-Stack Blog Platform Client Script
+ * TechBlog Full-Stack Blog Platform Client Script
  * Handles REST API interactions, authentication state, post feed with images,
  * interactive likes, share action, search filtering, and reader modal.
  */
 
-const TOKEN_KEY = 'devlog_token';
+const TOKEN_KEY = 'techblog_token';
 let currentUser = null;
 let currentActivePost = null;
 let activeCategory = 'all';
 let searchDebounceTimer = null;
-const likedPostsSet = new Set(JSON.parse(localStorage.getItem('devlog_liked_posts') || '[]'));
+const likedPostsSet = new Set(JSON.parse(localStorage.getItem('techblog_liked_posts') || '[]'));
 
 // =========================================================================
 // Centralized API Request Helper
@@ -316,7 +316,7 @@ async function handleLikeCurrentPost() {
   const res = await fetchApi(`/api/posts/${postId}/like`, { method: 'POST' });
   if (res.ok && res.data.success) {
     likedPostsSet.add(postId);
-    localStorage.setItem('devlog_liked_posts', JSON.stringify([...likedPostsSet]));
+    localStorage.setItem('techblog_liked_posts', JSON.stringify([...likedPostsSet]));
 
     currentActivePost.likes = res.data.likes;
     likesCount.innerText = res.data.likes;

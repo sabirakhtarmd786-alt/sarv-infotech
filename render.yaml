@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: devlog-blog
+    name: tech-blog
     runtime: python
     buildCommand: ""
     startCommand: "python server.py --port $PORT"
